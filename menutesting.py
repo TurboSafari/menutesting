@@ -60,8 +60,9 @@ def drawScrollWindow(slide_pos):
     s = pygame.Surface((width,height))
     bag_slot = []
     for i in range(60): bag_slot.append(buttons.button(str(i),x,y,30,30))#initalize bag slots
-    bag_length = len(bag_slot)
-    bar_size = ((height-40)/((bag_length/4)-3))+1
+    bag_length = (((len(bag_slot)/4)*35)+5)#bag length in pixles or window size
+    bag_bar_ratio = float((float(height-40))/float(bag_length))#ratio between bar and bag pixel size
+    bar_size = int((height-40)*bag_bar_ratio)#slide bar size in pixles
     s.set_alpha(200)
     s.fill(gray)
     game_display.blit(s,(x,y))
@@ -75,11 +76,13 @@ def drawScrollWindow(slide_pos):
         if 0 < slide_pos:
             if slide_up.checkClicked():
                 slide_pos -= 1
-        if slide_pos < ((bag_length/4)-4):
+                print(bag_length,bag_bar_ratio,bar_size)
+        if slide_pos < ((len(bag_slot)/4)-4):
             if slide_down.checkClicked():
                 slide_pos += 1
+                print(bag_length,bag_bar_ratio,bar_size)
     
-    slide_bar = buttons.button('',x+width-20,y+20+(slide_pos*bar_size),15,bar_size)#create slide bar object
+    slide_bar = buttons.button('',x+width-20,y+20+int((35*slide_pos)*bag_bar_ratio)+slide_pos,15,bar_size)#create slide bar object
     slide_bar.drawButton(game_display)#display slide bar
 
     #display bag slots

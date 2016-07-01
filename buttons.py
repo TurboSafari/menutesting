@@ -18,6 +18,12 @@ class button(object):
     def drawButton(self, display):
         self.s = pygame.Surface((self._width,self._height))
         self.s.set_alpha(self._alpha)
+        cur = pygame.mouse.get_pos()
+        if self._hover:
+            if self._x + self._width > cur[0] > self._x and self._y + self._height > cur[1] > self._y:
+                self._bcolor = self._acolor
+            else:
+                self._bcolor = self._icolor
         self.s.fill(self._bcolor)
         display.blit(self.s,(self._x,self._y))
         self.text_surf = self._font.render(self._text, True, self._tcolor)
@@ -34,11 +40,6 @@ class button(object):
     def setHover(self, color, active = False):
         self._hover = active
         self._hColor = color
-        cur = pygame.mouse.get_pos()
-        if self._x + self._width > cur[0] > self._x and self._y + self._height > cur[1] > self._y:
-            self._bcolor = self._acolor
-        else:
-            self._bcolor = self._icolor
         
     def setTextColor(self, color):
         self._tcolor = color

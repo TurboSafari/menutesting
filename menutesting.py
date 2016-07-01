@@ -32,21 +32,18 @@ def initMenu():
     y = ((display_height/2)-100)
     butt = []
     for i in range(5):
-        butt.append(buttons.button('Continue',x+5,y+5+(i*35),140,30))
+        butt.append(buttons.button('',x+5,y+5+(i*35),140,30))
         butt[i].setFont(small_font)
         butt[i].setTextColor((0,255,0))
         butt[i].setBackColor((0,0,255))
         butt[i].setHover(gray,True)
         butt[i].setAlpha(50)
-        
-##        cur = pygame.mouse.get_pos()            
-##        click = pygame.mouse.get_pressed()
-##        if click == (1,0,0):
-##            if butt[i].checkClicked():
-##                print 'clicked'
+    butt[0].setText('Continue')
+    butt[4].setText('Exit')
     return(butt)
 
 def displayMenu(butt):
+    #display menu
     x = ((display_width/2)-75)
     y = ((display_height/2)-100)
     s = pygame.Surface((150,180))   # the size of your rect
@@ -54,9 +51,7 @@ def displayMenu(butt):
     s.fill(gray)                    # this fills the entire surface
     game_display.blit(s, (x,y))     # adds to screen
     for i in range(5): butt[i].drawButton(game_display)
-
-
-    
+  
 def drawScrollWindow(slide_pos):
     width = 165
     height = 145
@@ -127,9 +122,8 @@ def gameLoop():
                         back_pack = True
             if event.type == pygame.MOUSEBUTTONUP:
                 if menu:
-                    for i in range(5):
-                        if menu_buttons[i].checkClicked():
-                            print 'clicked'
+                    if menu_buttons[0].checkClicked(): menu = False
+                    if menu_buttons[4].checkClicked(): gameQuit()
                     
         if back_pack:
             slide_pos = drawScrollWindow(slide_pos)

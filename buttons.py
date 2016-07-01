@@ -41,6 +41,8 @@ class button(object):
         self._hover = active
         self._hColor = color
         
+    def setText(self, text):
+        self._text = text
     def setTextColor(self, color):
         self._tcolor = color
     def setBackColor(self, color):
